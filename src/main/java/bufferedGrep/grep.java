@@ -1,9 +1,10 @@
-package naiveGrep;
+package bufferedGrep;
 
 import java.io.*;
 
 
-public class grep {
+
+public class grep{
 
 
     public static void main(String[] args){
@@ -13,11 +14,16 @@ public class grep {
             String Filename = args[i];
             File file = new File(Filename);
 
+            //NOTE: no control of maximum allowable file size is performed.
+            byte[] a = new byte[(int) file.length()];
 
             try {
                 FileInputStream FileIS = new FileInputStream(file);
 
-                BufferedReader Reader = new BufferedReader(new InputStreamReader(FileIS));
+                FileIS.read(a);
+
+                ByteArrayInputStream ByteIS = new ByteArrayInputStream(a);
+                BufferedReader Reader = new BufferedReader(new InputStreamReader(ByteIS));
 
                 String  line;
                 int StrIndex;
