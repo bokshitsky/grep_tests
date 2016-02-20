@@ -28,6 +28,14 @@ public class Main {
         results.put("Naive", (long) ((end - start)/10e6/COUNT));
 
 
+        //Threads greps works asynchronously for some reason.
+        start = System.nanoTime();
+        for (int i = 1; i <= COUNT; i++) {
+            threadsGrep.grep.main(args);
+        }
+        end =  System.nanoTime();
+        results.put("Threads", (long) ((end - start)/10e6/COUNT));
+
 
         for (String grepName:results.keySet()){
             System.out.println(grepName + " : " + results.get(grepName));
