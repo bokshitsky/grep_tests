@@ -1,29 +1,25 @@
 package bufferedGrep;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
-
-public class grep{
-
+public class grep {
 
     public static void main(String[] args){
         String Pattern = args[0];
 
         for (int i = 1; i < args.length ; i++) {
             String Filename = args[i];
-            File file = new File(Filename);
 
-            //NOTE: no control of maximum allowable file size is performed.
-            byte[] a = new byte[(int) file.length()];
 
             try {
-                FileInputStream FileIS = new FileInputStream(file);
-
-                FileIS.read(a);
-
-                ByteArrayInputStream ByteIS = new ByteArrayInputStream(a);
-                BufferedReader Reader = new BufferedReader(new InputStreamReader(ByteIS));
+                BufferedReader Reader = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(Filename))
+                        ,Integer.MAX_VALUE/100
+                );
 
                 String  line;
                 int StrIndex;
@@ -32,18 +28,12 @@ public class grep{
                         System.out.println(Filename + ":" + line);
                     }
                 }
-                Reader.close();
-
 
             } catch (IOException e) {
                 System.err.println("IO Exception occured for file " + Filename);
             }
-
-
-
         }
     }
-
 }
 
 

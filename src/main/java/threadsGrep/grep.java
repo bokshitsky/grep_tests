@@ -1,9 +1,9 @@
 package threadsGrep;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -26,9 +26,10 @@ class grepThread extends Thread{
     public void run(){
 
         try {
-            FileInputStream FileIS = new FileInputStream(filename);
 
-            BufferedReader Reader = new BufferedReader(new InputStreamReader(FileIS));
+            BufferedReader Reader = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(filename))
+            );
 
             String  line;
             int StrIndex;
@@ -46,7 +47,6 @@ class grepThread extends Thread{
         }
     }
 }
-
 
 
 public class grep{
@@ -67,12 +67,7 @@ public class grep{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
-
-
-
 }
 
 

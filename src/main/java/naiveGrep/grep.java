@@ -1,10 +1,12 @@
 package naiveGrep;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class grep {
-
 
     public static void main(String[] args){
         String Pattern = args[0];
@@ -14,29 +16,23 @@ public class grep {
 
 
             try {
-                FileInputStream FileIS = new FileInputStream(Filename);
+                BufferedReader Reader = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(Filename))
+                );
 
-            BufferedReader Reader = new BufferedReader(new InputStreamReader(FileIS));
-
-            String  line;
-            int StrIndex;
-            while ((line = Reader.readLine()) != null) {
-                if ((StrIndex = line.indexOf(Pattern)) != -1) {
-                    System.out.println(Filename + ":" + line);
-                }
+                String  line;
+                int StrIndex;
+                while ((line = Reader.readLine()) != null) {
+                    if ((StrIndex = line.indexOf(Pattern)) != -1) {
+                        System.out.println(Filename + ":" + line);
+                    }
             }
-            Reader.close();
-
 
         } catch (IOException e) {
             System.err.println("IO Exception occured for file " + Filename);
         }
-
-
-
         }
     }
-
 }
 
 
